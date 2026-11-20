@@ -1,0 +1,183 @@
+/* ==========================================================================
+   Blog
+   Страница списка статей: заголовок, фильтры-теги, сетка карточек.
+   ========================================================================== */
+
+@import url("base.css");
+
+/* ---------- Страница ---------- */
+
+.main--blog {
+  position: relative;
+  isolation: isolate;
+  padding-bottom: 6rem;
+}
+
+/* Декоративная подложка под блоком карточек (не перехватывает события) */
+.main--blog::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0; /* Это эквивалент left: 0; right: 0; */
+  top: var(--blog-decor-top, 22rem);
+  z-index: -1;
+  height: 42rem; /* Высота области, которую будет занимать изображение */
+
+  /* --- Замена оригинального background --- */
+  background-color: var(--color-surface); /* Базовый цвет, если изображение прозрачное */
+  background-image: url("../images/background_img.png"); /* Укажите путь к вашему изображению */
+  background-repeat: no-repeat; /* Изображение не должно повторяться */
+  background-size: 100% 100%; /* Растягивает изображение, чтобы оно заполнило всю область (100% ширины и 42rem высоты) */
+  background-position: center top; /* Выравнивает изображение по центру сверху */
+  /* --- Конец замены --- */
+
+  pointer-events: none; /* Изображение не должно перехватывать клики */
+}
+
+.blog__title {
+  margin-top: 1.5rem;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.blog__tags {
+  margin-top: 2rem;
+}
+
+/* ---------- Сетка карточек ---------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  gap: var(--gap);
+  margin-top: 1.5rem;
+}
+
+.cards--featured {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+/* ---------- Карточка статьи ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  transition: box-shadow var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1.5rem rgba(41, 99, 163, 0.12);
+}
+
+.card__media {
+  position: relative;
+}
+
+.card__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.cards--featured .card__image {
+  aspect-ratio: 2.2 / 1;
+}
+
+.card__tags {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+.card__title {
+  font-size: var(--fs-card-title);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.card__title a {
+  text-decoration: none;
+}
+
+.card__title a:hover {
+  text-decoration: underline;
+}
+
+.card__author {
+  font-size: var(--fs-xs);
+  color: var(--color-text-soft);
+}
+
+.card__excerpt {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.card__date {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: var(--fs-xs);
+  color: var(--color-text-muted);
+}
+
+/* ---------- Кнопка «Ещё» ---------- */
+
+.blog__more {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 600px) {
+  .tag-list--scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch; /* плавный скролл на старых iOS */
+    overscroll-behavior-x: contain;    /* скролл не "протекает" на страницу */
+  }
+
+  .tag-list--scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Главное исправление: теги не сжимаются и не переносят текст */
+  .tag-list--scroll > * {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .cards--featured .card__image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .card__tags {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .blog__more {
+    margin-top: 2.5rem;
+  }
+}

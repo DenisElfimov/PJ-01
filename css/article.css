@@ -1,0 +1,662 @@
+/* ==========================================================================
+   Article
+   Страница статьи: контент, оглавление, врезки, сайдбар и CTA-подвал.
+   ========================================================================== */
+
+@import url("base.css");
+
+/* ---------- Декоративные SVG фона ---------- */
+
+body {
+  position: relative;
+}
+
+.main {
+  position: relative;
+  /* Убираем z-index и isolation */
+}
+
+.article-decor {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Верхний декор из макета (218×606), прижат к правому краю слоя. */
+.article-decor::before {
+  content: "";
+  position: absolute;
+  top: 2480px;
+  right: 0;
+  width: 218px;
+  height: 606px;
+  background: url("../images/red_decor_middle.svg") no-repeat right top / contain;
+}
+
+/* На планшетах, включая iPad Pro 12.9″ (ширина CSS viewport до 1366px),
+   крупный фоновый декор скрываем целиком. */
+@media (max-width: 1366px) {
+  .article-decor {
+    display: none;
+  }
+}
+
+/* ---------- Раскладка ---------- */
+
+.article-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 17.625rem;
+  gap: var(--gap);
+  align-items: start;
+  width: 100%;
+  max-width: calc(var(--container-max) + var(--container-pad) * 2);
+  margin-inline: auto;
+  padding: 0 var(--container-pad) 4rem;
+}
+
+.article {
+  min-width: 0;
+  padding-top: 1rem;
+}
+
+/* ---------- Заголовок статьи ---------- */
+
+.article__title {
+  margin-top: 1rem;
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.article__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+  font-size: var(--fs-small);
+}
+
+.article__divider {
+  color: var(--color-text-muted);
+}
+
+.article__tag {
+  color: var(--color-accent-dark);
+  text-decoration: none;
+}
+
+.article__tag:hover {
+  text-decoration: underline;
+}
+
+/* Скруглённые картинки статьи и сайдбара. */
+.article__hero img,
+.figure__image,
+.media-text__media img,
+.media-grid__col img,
+.promo img {
+  width: 100%;
+  border-radius: var(--radius-md);
+}
+
+/* ---------- Текстовый контент ---------- */
+
+.prose {
+  margin-top: 1.5rem;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.prose > * + * {
+  margin-top: 1.5rem;
+}
+
+.prose h2 {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.prose > h2 {
+  margin-top: 2rem;
+}
+
+.prose p {
+  font-weight: 500;
+}
+
+/* ---------- Оглавление ---------- */
+
+.toc {
+  display: grid;
+  gap: 1rem;
+}
+
+.toc__title {
+  font-weight: 700;
+  font-size: var(--fs-body);
+}
+
+.toc__list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.toc__list .toc__list {
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+.toc__link {
+  font-weight: 500;
+  text-underline-offset: 2px;
+}
+
+.toc__link:hover {
+  color: var(--color-accent-dark);
+}
+
+/* ---------- Маркированный список ---------- */
+
+.list {
+  display: grid;
+  gap: 1rem;
+}
+
+.list__item {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.list__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+/* ---------- Цитаты ---------- */
+
+.quote {
+  display: grid;
+  gap: 0.5rem;
+  padding: 3.5rem 1.5rem 1.5rem;
+  border-radius: var(--radius-md);
+  background-image: url(../images/quotes.png);
+  background-repeat: no-repeat;
+  background-position: 1.5rem 1.125rem;
+}
+
+.quote__text {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.quote__author {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.quote--mini {
+  max-width: 30rem;
+  margin-inline: auto;
+  padding: 1.5rem;
+  background-image: url(../images/quote_mini.png);
+  background-position: center;
+  background-size: contain;
+  text-align: center;
+}
+
+/* ---------- Врезки-упражнения ---------- */
+
+.note {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+}
+
+.note--yellow {
+  background-color: var(--color-note-yellow);
+}
+
+.note--orange {
+  background-color: var(--color-note-orange);
+}
+
+.note--blue {
+  background-color: var(--color-note-blue);
+}
+
+.note__title {
+  font-weight: 700;
+  font-size: var(--fs-body);
+}
+
+/* ---------- Иллюстрации ---------- */
+
+.figure {
+  display: grid;
+  gap: 1rem;
+}
+
+.figure__caption {
+  font-size: var(--fs-small);
+  line-height: 1.3;
+}
+
+.media-text {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.media-text__media {
+  flex: none;
+  width: 50%;
+  max-width: 19rem;
+}
+
+.media-text__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 1.5rem;
+}
+
+.media-grid__col {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+.lightning {
+  width: 10rem;
+  margin-inline: auto;
+}
+
+/* ---------- Хештеги ---------- */
+
+.hashtag-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-small);
+}
+
+.hashtag-list__item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hashtag-list__item + .hashtag-list__item::before {
+  content: "·";
+}
+
+.hashtag-list__link {
+  color: var(--color-accent-dark);
+  text-decoration: none;
+}
+
+.hashtag-list__link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Сайдбар ---------- */
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 4rem;
+}
+
+/* Промо-карточка (свободные окошки) */
+.offer {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface-blue);
+  text-align: center;
+}
+
+.offer__image {
+  width: 100%;
+  max-width: 15.5rem;
+}
+
+.offer__image img {
+  width: 100%;
+}
+
+.offer__title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.offer__text {
+  font-size: var(--fs-small);
+  line-height: 1.45;
+}
+
+.offer .button {
+  width: 100%;
+}
+
+/* Карточка психолога */
+.specialist {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg);
+  box-shadow: var(--shadow-card);
+  text-align: center;
+}
+
+.specialist__media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.specialist__photo {
+  display: block;
+  flex: none;
+  width: 7.5rem;
+  height: 7.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Плашки расположены поверх фотографии психолога. */
+.specialist__badges {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/*
+  Ширина — по контенту: без фиксированных значений, только паддинги 6px,
+  gap 4px и высота 24px из макета. Фон полупрозрачный, как у оверлеев в блоге.
+*/
+.specialist__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 6px;
+  background-color: var(--color-overlay-badge);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  color: var(--color-text);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.specialist__badge-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.specialist__name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.specialist__role {
+  font-weight: 600;
+}
+
+.specialist__meta {
+  font-size: var(--fs-small);
+  color: #a2a7b1;
+}
+
+.specialist__divider {
+  width: 100%;
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background-color: var(--color-border);
+}
+
+.specialist__subtitle {
+  justify-self: start;
+  font-weight: 700;
+  text-align: left;
+}
+
+.specialist__list {
+  justify-self: stretch;
+  text-align: left;
+  font-size: var(--fs-small);
+}
+
+.specialist .button {
+  width: 100%;
+}
+
+/* Карточка видеосессий */
+.offer--sessions {
+  position: relative;
+  justify-items: start;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  text-align: left;
+}
+
+.offer__price {
+  color: var(--color-accent-dark);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.offer__price-value {
+  font-size: 1.5rem;
+}
+
+.offer__amount {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.offer--sessions .button {
+  position: relative;
+  z-index: 3;
+  width: auto;
+}
+
+.offer__gifts {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 6.5rem;
+  height: 6.5rem;
+  pointer-events: none;
+}
+
+.offer__gift {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.offer__gift img {
+  width: 100%;
+}
+
+.offer__gift--blue {
+  right: 25%;
+  bottom: 12%;
+  z-index: 1;
+}
+
+.offer__gift--red {
+  z-index: 2;
+}
+
+/* ---------- CTA-подвал ---------- */
+
+/* Контекст для фигуры (::before) и обрезка её по правому краю блока. */
+.cta {
+  position: relative;
+  margin-top: 3rem;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Вторая фигура из макета (73×240). */
+.cta::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 73px;
+  height: 240px;
+  transform: translateY(-50%);
+  background: url("../images/red_decor_bottom.svg") no-repeat center / contain;
+}
+
+.cta__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  width: 100%;
+  max-width: calc(var(--container-max) + var(--container-pad) * 2);
+  margin-inline: auto;
+  padding: 3rem var(--container-pad);
+}
+
+.cta__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+  max-width: 22rem;
+}
+
+.cta__title {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.cta__subtitle {
+  font-size: 1.125rem;
+  line-height: 1.45;
+}
+
+.cta__image {
+  flex: none;
+  width: min(48%, 30rem);
+  height: auto;
+}
+
+.footer-decor {
+  width: 100%;
+  height: 100px; /* Adjust height as needed */
+  background-image: url("../images/background_footer.png");
+  background-repeat: no-repeat;
+  background-size: cover; /* Or 'contain' depending on how you want it to scale */
+  background-position: center bottom; /* Aligns the SVG to the bottom of the element */
+  margin-bottom: 0; /* Removes any default margin that might push it away from the footer */
+}
+
+/* ---------- Адаптив ---------- */
+
+@media (max-width: 1023px) {
+  .article-layout {
+    grid-template-columns: minmax(0, 1fr);
+    padding-bottom: 3rem;
+  }
+
+  .sidebar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    align-items: start;
+    padding-top: 0;
+  }
+
+  .cta__image {
+    width: min(40%, 20rem);
+  }
+
+  .footer-decor {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .media-text {
+    display: block;
+  }
+
+  .media-text__media {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .cta {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .toc__list .toc__list {
+    padding-left: 0.75rem;
+  }
+
+  .sidebar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hashtag-list__item + .hashtag-list__item::before {
+    display: none;
+  }
+}
