@@ -1,11 +1,6 @@
-/* ==========================================================================
-   Article
-   Страница статьи: контент, оглавление, врезки, сайдбар и CTA-подвал.
-   ========================================================================== */
-
 @import url("base.css");
 
-/* ---------- Декоративные SVG фона ---------- */
+
 
 body {
   position: relative;
@@ -13,7 +8,6 @@ body {
 
 .main {
   position: relative;
-  /* Убираем z-index и isolation */
 }
 
 .article-decor {
@@ -24,7 +18,6 @@ body {
   pointer-events: none;
 }
 
-/* Верхний декор из макета (218×606), прижат к правому краю слоя. */
 .article-decor::before {
   content: "";
   position: absolute;
@@ -34,16 +27,6 @@ body {
   height: 606px;
   background: url("../images/red_decor_middle.svg") no-repeat right top / contain;
 }
-
-/* На планшетах, включая iPad Pro 12.9″ (ширина CSS viewport до 1366px),
-   крупный фоновый декор скрываем целиком. */
-@media (max-width: 1366px) {
-  .article-decor {
-    display: none;
-  }
-}
-
-/* ---------- Раскладка ---------- */
 
 .article-layout {
   display: grid;
@@ -60,8 +43,6 @@ body {
   min-width: 0;
   padding-top: 1rem;
 }
-
-/* ---------- Заголовок статьи ---------- */
 
 .article__title {
   margin-top: 1rem;
@@ -92,7 +73,6 @@ body {
   text-decoration: underline;
 }
 
-/* Скруглённые картинки статьи и сайдбара. */
 .article__hero img,
 .figure__image,
 .media-text__media img,
@@ -101,8 +81,6 @@ body {
   width: 100%;
   border-radius: var(--radius-md);
 }
-
-/* ---------- Текстовый контент ---------- */
 
 .prose {
   margin-top: 1.5rem;
@@ -127,8 +105,6 @@ body {
 .prose p {
   font-weight: 500;
 }
-
-/* ---------- Оглавление ---------- */
 
 .toc {
   display: grid;
@@ -159,8 +135,6 @@ body {
   color: var(--color-accent-dark);
 }
 
-/* ---------- Маркированный список ---------- */
-
 .list {
   display: grid;
   gap: 1rem;
@@ -181,8 +155,6 @@ body {
   border-radius: 50%;
   background-color: var(--color-accent);
 }
-
-/* ---------- Цитаты ---------- */
 
 .quote {
   display: grid;
@@ -214,8 +186,6 @@ body {
   text-align: center;
 }
 
-/* ---------- Врезки-упражнения ---------- */
-
 .note {
   display: grid;
   gap: 0.5rem;
@@ -239,8 +209,6 @@ body {
   font-weight: 700;
   font-size: var(--fs-body);
 }
-
-/* ---------- Иллюстрации ---------- */
 
 .figure {
   display: grid;
@@ -286,8 +254,6 @@ body {
   margin-inline: auto;
 }
 
-/* ---------- Хештеги ---------- */
-
 .hashtag-list {
   display: flex;
   flex-wrap: wrap;
@@ -315,8 +281,6 @@ body {
   text-decoration: underline;
 }
 
-/* ---------- Сайдбар ---------- */
-
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -324,7 +288,6 @@ body {
   padding-top: 4rem;
 }
 
-/* Промо-карточка (свободные окошки) */
 .offer {
   display: grid;
   justify-items: center;
@@ -359,7 +322,6 @@ body {
   width: 100%;
 }
 
-/* Карточка психолога */
 .specialist {
   display: grid;
   justify-items: center;
@@ -388,7 +350,6 @@ body {
   object-fit: cover;
 }
 
-/* Плашки расположены поверх фотографии психолога. */
 .specialist__badges {
   position: absolute;
   top: 0;
@@ -403,10 +364,6 @@ body {
   list-style: none;
 }
 
-/*
-  Ширина — по контенту: без фиксированных значений, только паддинги 6px,
-  gap 4px и высота 24px из макета. Фон полупрозрачный, как у оверлеев в блоге.
-*/
 .specialist__badge {
   display: inline-flex;
   align-items: center;
@@ -475,7 +432,6 @@ body {
   width: 100%;
 }
 
-/* Карточка видеосессий */
 .offer--sessions {
   position: relative;
   justify-items: start;
@@ -538,9 +494,6 @@ body {
   z-index: 2;
 }
 
-/* ---------- CTA-подвал ---------- */
-
-/* Контекст для фигуры (::before) и обрезка её по правому краю блока. */
 .cta {
   position: relative;
   margin-top: 3rem;
@@ -548,7 +501,6 @@ body {
   border-top: 1px solid var(--color-border);
 }
 
-/* Вторая фигура из макета (73×240). */
 .cta::before {
   content: "";
   position: absolute;
@@ -599,15 +551,13 @@ body {
 
 .footer-decor {
   width: 100%;
-  height: 100px; /* Adjust height as needed */
+  height: 100px;
   background-image: url("../images/background_footer.png");
   background-repeat: no-repeat;
-  background-size: cover; /* Or 'contain' depending on how you want it to scale */
-  background-position: center bottom; /* Aligns the SVG to the bottom of the element */
-  margin-bottom: 0; /* Removes any default margin that might push it away from the footer */
+  background-size: cover; 
+  background-position: center bottom;
+  margin-bottom: 0;
 }
-
-/* ---------- Адаптив ---------- */
 
 @media (max-width: 1023px) {
   .article-layout {
@@ -627,6 +577,12 @@ body {
   }
 
   .footer-decor {
+    display: none;
+  }
+}
+
+@media (max-width: 1366px) {
+  .article-decor {
     display: none;
   }
 }

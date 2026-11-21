@@ -1,11 +1,4 @@
-/* ==========================================================================
-   Blog
-   Страница списка статей: заголовок, фильтры-теги, сетка карточек.
-   ========================================================================== */
-
 @import url("base.css");
-
-/* ---------- Страница ---------- */
 
 .main--blog {
   position: relative;
@@ -13,24 +6,19 @@
   padding-bottom: 6rem;
 }
 
-/* Декоративная подложка под блоком карточек (не перехватывает события) */
 .main--blog::before {
   content: "";
   position: absolute;
-  inset-inline: 0; /* Это эквивалент left: 0; right: 0; */
+  inset-inline: 0; 
   top: var(--blog-decor-top, 22rem);
   z-index: -1;
-  height: 42rem; /* Высота области, которую будет занимать изображение */
-
-  /* --- Замена оригинального background --- */
-  background-color: var(--color-surface); /* Базовый цвет, если изображение прозрачное */
-  background-image: url("../images/background_img.png"); /* Укажите путь к вашему изображению */
-  background-repeat: no-repeat; /* Изображение не должно повторяться */
-  background-size: 100% 100%; /* Растягивает изображение, чтобы оно заполнило всю область (100% ширины и 42rem высоты) */
-  background-position: center top; /* Выравнивает изображение по центру сверху */
-  /* --- Конец замены --- */
-
-  pointer-events: none; /* Изображение не должно перехватывать клики */
+  height: 42rem; 
+  background-color: var(--color-surface); 
+  background-image: url("../images/background_img.png"); 
+  background-repeat: no-repeat; 
+  background-size: 100% 100%; 
+  background-position: center top; 
+  pointer-events: none; 
 }
 
 .blog__title {
@@ -44,7 +32,7 @@
   margin-top: 2rem;
 }
 
-/* ---------- Сетка карточек ---------- */
+
 
 .cards {
   display: grid;
@@ -57,7 +45,6 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
 }
 
-/* ---------- Карточка статьи ---------- */
 
 .card {
   display: flex;
@@ -136,7 +123,7 @@
   color: var(--color-text-muted);
 }
 
-/* ---------- Кнопка «Ещё» ---------- */
+
 
 .blog__more {
   display: flex;
@@ -145,24 +132,21 @@
 }
 
 
-
-/* ---------- Адаптив ---------- */
-
 @media (max-width: 600px) {
   .tag-list--scroll {
     flex-wrap: nowrap;
     overflow-x: auto;
     padding-bottom: 0.25rem;
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch; /* плавный скролл на старых iOS */
-    overscroll-behavior-x: contain;    /* скролл не "протекает" на страницу */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;    
   }
 
   .tag-list--scroll::-webkit-scrollbar {
     display: none;
   }
 
-  /* Главное исправление: теги не сжимаются и не переносят текст */
+
   .tag-list--scroll > * {
     flex: 0 0 auto;
     white-space: nowrap;
